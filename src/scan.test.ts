@@ -135,9 +135,43 @@ describe("quick route scan", () => {
     const result = await scanRouteForFirstValidCalibration("test|route/1", () => {});
 
     expect(result.segment).toBe(1);
+    expect(result.resultType).toBe("valid");
+    expect(result.reason).toBe("no-invalid-found");
     expect(result.scannedSegments).toBe(1);
     expect(result.totalSegments).toBe(1);
     expect(decompressLog).toHaveBeenCalledTimes(1);
     expect(decompressLog).toHaveBeenCalledWith(expect.any(Uint8Array), "https://example.test/route/1/qlog.zst");
+  });
+
+  it("checks the entire selected segment for invalid calibration", async () => {
+    vi.mocked(decompressLog).mockImplementation((bytes) => bytes);
+    const validMessage = {
+      logMonoTime: 1n,
+      status: 1,
+      statusName: "calibrated",
+      calPerc: 100,
+      validBlocks: 20,
+      rpyCalib: [0, 0, 0],
+      rpyCalibSpread: [],
+      wideFromDeviceEuler: [],
+      height: [],
+    } satisfies CalibrationMessage;
+    const invalidMessage = {
+      ...validMessage,
+      logMonoTime: 2n,
+      status: 2,
+      statusName: "invalid",
+    } satisfies CalibrationMessage;
+    vi.mocked(findCalibrationMessages).mockReturnValue([validMessage, invalidMessage]);
+
+    const result = await scanRouteForFirstValidCalibration("test|route/1", () => {});
+
+    expect(result.resultType).toBe("invalid");
+    expect(result.reason).toBe("status-invalid");
+    expect(result.message).toBe(invalidMessage);
+    expect(result.previousValid?.message).toBe(validMessage);
+    expect(result.scannedSegments).toBe(1);
+    expect(result.totalSegments).toBe(1);
+    expect(decompressLog).toHaveBeenCalledTimes(1);
   });
 });

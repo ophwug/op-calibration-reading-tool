@@ -46,6 +46,7 @@ app.innerHTML = `
           <li>Open <a href="https://connect.comma.ai/" target="_blank" rel="noreferrer">comma Connect</a> and select the drive.</li>
           <li>Open <strong>More info</strong> and turn on <strong>Public access</strong>.</li>
           <li>Copy either the browser URL or the route name. A current URL looks like <code>https://connect.comma.ai/&lt;dongle&gt;/&lt;route&gt;</code>. One trailing number selects that segment for Quick look; a clip start/end pair is ignored.</li>
+          <li>Paste it into the input at the top of the page, then choose <strong>Quick look</strong> or <strong>Full scan</strong>.</li>
           <li>You can turn Public access off again after reading the route.</li>
         </ol>
         <div class="jwt-option" id="auth-panel"></div>
@@ -283,22 +284,29 @@ function renderResult(result: CalibrationScanResult): void {
   const isIncomplete = result.resultType === "incomplete";
   const isFullAllClear = result.scanMode === "full" && result.resultType === "valid";
   const isQuick = result.scanMode === "quick";
+  const isQuickSegmentScan = isQuick && result.reason !== "first-valid";
   const resultEyebrow = isQuick
-    ? "quick calibration look"
+    ? isQuickSegmentScan
+      ? "quick segment scan"
+      : "quick calibration look"
     : isIncomplete
       ? "partial route scan"
       : isFullAllClear
         ? "route calibration all clear"
         : "earliest invalid calibration";
-  const resultBadge = isQuick
-    ? "first valid calibration"
+  const resultBadge = isInvalid
+    ? result.reason === "status-invalid"
+      ? "logged invalid"
+      : "outside current limits"
+    : isQuickSegmentScan
+      ? "no invalid calibration found"
+      : isQuick
+        ? "first valid calibration"
     : isIncomplete
       ? "scan incomplete"
     : isFullAllClear
       ? "no invalid calibration found"
-      : result.reason === "status-invalid"
-        ? "logged invalid"
-        : "outside current limits";
+      : "outside current limits";
   const resultBadgeClass = isInvalid || isIncomplete ? "warn" : "ok";
   const segmentText = isFullAllClear
     ? `${result.totalSegments} ${logFileKind(result.logSource)} segment(s), earliest valid calibration in segment ${result.segment}`

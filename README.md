@@ -46,6 +46,7 @@ with the Vite base path `/op-calibration-reading-tool/`, so the live URL is
 1. Open [comma Connect](https://connect.comma.ai/) and select the drive.
 2. Open **More info** and turn on **Public access**.
 3. Copy either the browser URL or the route name.
+4. Paste it into the input at the top of the page, then choose **Quick look** or **Full scan**.
 
 Accepted inputs look like:
 

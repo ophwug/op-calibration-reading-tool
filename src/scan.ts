@@ -104,6 +104,56 @@ export async function scanRouteForFirstValidCalibration(
       continue;
     }
     context.routeInfo = routeInfoWithDeviceType(context.routeInfo, context.routeName, deviceType);
+    if (context.requestedSegment !== null) {
+      const invalidMessage = calibrationMessages.find((calibration) => isInvalidCalibration(calibration, context.routeInfo));
+      if (invalidMessage) {
+        const previousValidMessage = calibrationMessages
+          .filter((calibration) => calibration.status === 1 && calibration.logMonoTime < invalidMessage.logMonoTime)
+          .at(-1);
+        onProgress({ phase: "done", message: `Found invalid calibration in segment ${segment}` });
+        return {
+          routeName: context.routeName,
+          routeInfo: context.routeInfo,
+          logUrl,
+          logSource: context.source,
+          segment,
+          message: invalidMessage,
+          previousValid: previousValidMessage ? { logUrl, segment, message: previousValidMessage } : null,
+          qcameraPreview: previewForSegment(context.qcameraUrls, segment, "invalid-segment"),
+          readFailures,
+          scannedSegments: 1,
+          totalSegments: 1,
+          scanMode: "quick",
+          resultType: "invalid",
+          reason: invalidMessage.status === 2 ? "status-invalid" : "outside-current-limits",
+        };
+      }
+
+      const lastValidMessage = calibrationMessages
+        .filter((calibration) => calibration.status === 1 && calibration.rpyCalib.length === 3)
+        .at(-1);
+      if (lastValidMessage) {
+        onProgress({ phase: "done", message: `No invalid calibration found in segment ${segment}` });
+        return {
+          routeName: context.routeName,
+          routeInfo: context.routeInfo,
+          logUrl,
+          logSource: context.source,
+          segment,
+          message: lastValidMessage,
+          previousValid: null,
+          qcameraPreview: previewForSegment(context.qcameraUrls, segment, "early-route"),
+          readFailures,
+          scannedSegments: 1,
+          totalSegments: 1,
+          scanMode: "quick",
+          resultType: "valid",
+          reason: "no-invalid-found",
+        };
+      }
+      continue;
+    }
+
     const message = calibrationMessages.find((calibration) => calibration.status === 1 && calibration.rpyCalib.length === 3);
     if (message) {
       onProgress({ phase: "done", message: `Found valid calibration in segment ${segment}` });
