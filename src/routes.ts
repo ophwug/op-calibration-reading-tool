@@ -13,6 +13,7 @@ export interface RouteFiles {
 
 export interface RouteInfo {
   fullname: string;
+  make?: string;
   deviceType?: string;
   dongle_id?: string;
   dongleId?: string;

@@ -18,6 +18,30 @@ export function formatLogMonoTime(value: bigint): string {
   return `${value.toString()} ns`;
 }
 
+export function formatDetectedVehicle(make: string | undefined, platform: string | undefined): string | null {
+  const makeLabel = make?.trim() ? titleCaseToken(make.trim()) : "";
+  const platformParts = platform?.trim().split(/[_\s]+/).filter(Boolean) ?? [];
+  if (makeLabel && platformParts[0]?.toLowerCase() === make?.trim().toLowerCase()) {
+    platformParts.shift();
+  }
+  const modelLabel = platformParts.map(formatVehicleToken).join(" ");
+  return [makeLabel, modelLabel].filter(Boolean).join(" ") || null;
+}
+
+function formatVehicleToken(token: string): string {
+  if (/^(?:EV|HEV|PHEV|EUV|SUV|AWD|RWD|FWD|TSS\d*|[A-Z]{1,3}\d+[A-Z0-9]*)$/i.test(token)) {
+    return token.toUpperCase();
+  }
+  if (/^\d+(?:ST|ND|RD|TH)$/i.test(token)) {
+    return token.toLowerCase();
+  }
+  return titleCaseToken(token);
+}
+
+function titleCaseToken(token: string): string {
+  return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+}
+
 export function deviceLimitKey(routeInfo: RouteInfo | null): keyof typeof CALIBRATION_LIMITS {
   return routeInfo?.deviceType === "mici" || routeInfo?.devicetype === 7 ? "mici" : "default";
 }
@@ -25,6 +49,11 @@ export function deviceLimitKey(routeInfo: RouteInfo | null): keyof typeof CALIBR
 export function yawDirection(yaw: number): string {
   if (Math.abs(yaw) < 0.0001) return "centered";
   return yaw > 0 ? "left" : "right";
+}
+
+export function yawCorrectionDirection(yaw: number): "left" | "right" | "center" {
+  if (Math.abs(yaw) < 0.0001) return "center";
+  return yaw > 0 ? "right" : "left";
 }
 
 export function pitchDirection(pitch: number): string {

@@ -25,6 +25,22 @@ describe("route parsing", () => {
     });
   });
 
+  it("parses a single trailing Connect path number as a segment", () => {
+    expect(parseRouteInput("https://connect.comma.ai/5beb9b58bd12b691/0000010a--a51155e496/1")).toMatchObject({
+      routeName: "5beb9b58bd12b691|0000010a--a51155e496",
+      canonicalInput: "5beb9b58bd12b691|0000010a--a51155e496/1",
+      segment: 1,
+    });
+  });
+
+  it("parses a single trailing route-name number as a segment", () => {
+    expect(parseRouteInput("5beb9b58bd12b691/0000010a--a51155e496/1")).toMatchObject({
+      routeName: "5beb9b58bd12b691|0000010a--a51155e496",
+      canonicalInput: "5beb9b58bd12b691|0000010a--a51155e496/1",
+      segment: 1,
+    });
+  });
+
   it("extracts segment numbers from signed log URLs", () => {
     expect(segmentFromUrl("https://example.test/dongle/route/12/qlog.zst?sig=abc")).toBe(12);
     expect(segmentFromUrl("https://example.test/dongle/route/7/rlog.bz2")).toBe(7);
@@ -45,6 +61,16 @@ describe("route parsing", () => {
     );
 
     expect(routeInputFromUrl(shareUrl)).toBe("5beb9b58bd12b691|0000010a--a51155e496");
+  });
+
+  it("preserves an explicit segment in share URLs", () => {
+    const shareUrl = buildRouteShareUrl(
+      "https://example.test",
+      "/",
+      "https://connect.comma.ai/5beb9b58bd12b691/0000010a--a51155e496/1",
+    );
+
+    expect(routeInputFromUrl(shareUrl)).toBe("5beb9b58bd12b691|0000010a--a51155e496/1");
   });
 
   it("ignores empty and invalid route query params", () => {

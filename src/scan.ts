@@ -56,6 +56,7 @@ export interface LogReadFailure {
 
 interface RouteLogContext {
   routeName: string;
+  requestedSegment: number | null;
   routeInfo: RouteInfo | null;
   logUrls: string[];
   qcameraUrls: string[];
@@ -72,16 +73,22 @@ export async function scanRouteForFirstValidCalibration(
   onProgress: (progress: ScanProgress) => void,
 ): Promise<CalibrationScanResult> {
   const context = await loadRouteLogContext(input, onProgress);
+  const logUrls = context.requestedSegment === null
+    ? context.logUrls
+    : context.logUrls.filter((url) => segmentFromUrl(url) === context.requestedSegment);
+  if (logUrls.length === 0) {
+    throw new Error(`Segment ${context.requestedSegment} does not have an uploaded ${logFileKind(context.source)}.`);
+  }
   let decodedSegments = 0;
   const readFailures: LogReadFailure[] = [];
 
-  for (let index = 0; index < context.logUrls.length; index += 1) {
-    const logUrl = context.logUrls[index];
+  for (let index = 0; index < logUrls.length; index += 1) {
+    const logUrl = logUrls[index];
     const segment = segmentFromUrl(logUrl);
     let calibrationMessages: CalibrationMessage[];
     let deviceType: DeviceType | null;
     try {
-      const segmentScan = await downloadLogSegmentScan(logUrl, segment, index, context.logUrls.length, context.source, onProgress);
+      const segmentScan = await downloadLogSegmentScan(logUrl, segment, index, logUrls.length, context.source, onProgress);
       calibrationMessages = segmentScan.calibrationMessages;
       deviceType = segmentScan.deviceType;
       decodedSegments += 1;
@@ -92,7 +99,7 @@ export async function scanRouteForFirstValidCalibration(
         phase: "decode",
         message: `Could not read ${logFileKind(context.source)} segment ${segment}: ${failure.message}`,
         current: index + 1,
-        total: context.logUrls.length,
+        total: logUrls.length,
       });
       continue;
     }
@@ -108,10 +115,10 @@ export async function scanRouteForFirstValidCalibration(
         segment,
         message,
         previousValid: null,
-        qcameraPreview: previewForSegment(context.qcameraUrls, 1, "early-route"),
+        qcameraPreview: previewForSegment(context.qcameraUrls, context.requestedSegment ?? 1, "early-route"),
         readFailures,
         scannedSegments: index + 1,
-        totalSegments: context.logUrls.length,
+        totalSegments: logUrls.length,
         scanMode: "quick",
         resultType: "valid",
         reason: "first-valid",
@@ -258,7 +265,7 @@ async function loadRouteLogContext(
     onProgress({ phase: "metadata", message: "No qlogs found; falling back to rlogs." });
   }
 
-  return { routeName: parsed.routeName, routeInfo, logUrls, qcameraUrls, source };
+  return { routeName: parsed.routeName, requestedSegment: parsed.segment, routeInfo, logUrls, qcameraUrls, source };
 }
 
 async function downloadLogSegmentScan(

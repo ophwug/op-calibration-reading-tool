@@ -115,4 +115,29 @@ describe("quick route scan", () => {
 
     expect(decompressLog).toHaveBeenCalledTimes(2);
   });
+
+  it("scans only an explicitly selected segment", async () => {
+    vi.mocked(decompressLog).mockImplementation((bytes) => bytes);
+    vi.mocked(findCalibrationMessages).mockReturnValue([
+      {
+        logMonoTime: 1n,
+        status: 1,
+        statusName: "calibrated",
+        calPerc: 100,
+        validBlocks: 20,
+        rpyCalib: [0, 0, 0],
+        rpyCalibSpread: [],
+        wideFromDeviceEuler: [],
+        height: [],
+      },
+    ]);
+
+    const result = await scanRouteForFirstValidCalibration("test|route/1", () => {});
+
+    expect(result.segment).toBe(1);
+    expect(result.scannedSegments).toBe(1);
+    expect(result.totalSegments).toBe(1);
+    expect(decompressLog).toHaveBeenCalledTimes(1);
+    expect(decompressLog).toHaveBeenCalledWith(expect.any(Uint8Array), "https://example.test/route/1/qlog.zst");
+  });
 });

@@ -1,7 +1,7 @@
 import "./styles.css";
 import { completeAuthCallback, isSignedIn, setAccessToken, signOut } from "./auth";
 import { CALIBRATION_LIMITS, COMMA_JWT_PORTAL_URL, GITHUB_REPO_URL, MOUNT_INSTALL_TEMPLATES_URL, OPENPILOT_MASTER_SOURCES } from "./constants";
-import { adjustmentHint, formatAngle, formatDegrees, formatLogMonoTime, pitchDirection, yawDirection, deviceLimitKey } from "./format";
+import { adjustmentHint, formatAngle, formatDegrees, formatDetectedVehicle, formatLogMonoTime, pitchDirection, yawCorrectionDirection, yawDirection, deviceLimitKey } from "./format";
 import { buildRouteShareUrl, parseRouteInput, routeInputFromUrl } from "./routeInput";
 import { scanRouteForFirstValidCalibration, scanRouteForInvalidCalibration, type CalibrationScanResult } from "./scan";
 
@@ -45,7 +45,7 @@ app.innerHTML = `
         <ol>
           <li>Open <a href="https://connect.comma.ai/" target="_blank" rel="noreferrer">comma Connect</a> and select the drive.</li>
           <li>Open <strong>More info</strong> and turn on <strong>Public access</strong>.</li>
-          <li>Copy either the browser URL or the route name. A current URL looks like <code>https://connect.comma.ai/&lt;dongle&gt;/&lt;route&gt;</code>. If clip start/end seconds are included after the route, they are ignored.</li>
+          <li>Copy either the browser URL or the route name. A current URL looks like <code>https://connect.comma.ai/&lt;dongle&gt;/&lt;route&gt;</code>. One trailing number selects that segment for Quick look; a clip start/end pair is ignored.</li>
           <li>You can turn Public access off again after reading the route.</li>
         </ol>
         <div class="jwt-option" id="auth-panel"></div>
@@ -155,9 +155,9 @@ window.addEventListener("popstate", () => {
 async function submitRoute(routeInput: string, mode: ScanMode, options: { updateHistory: boolean }): Promise<void> {
   clearResult();
 
-  let routeName: string;
+  let canonicalInput: string;
   try {
-    routeName = parseRouteInput(routeInput).routeName;
+    canonicalInput = parseRouteInput(routeInput).canonicalInput;
   } catch (error) {
     if (options.updateHistory) {
       window.history.pushState({}, "", new URL(import.meta.env.BASE_URL, window.location.origin));
@@ -169,9 +169,9 @@ async function submitRoute(routeInput: string, mode: ScanMode, options: { update
     return;
   }
 
-  input.value = routeName;
+  input.value = canonicalInput;
   if (options.updateHistory) {
-    window.history.pushState({}, "", buildRouteShareUrl(window.location.origin, import.meta.env.BASE_URL, routeName));
+    window.history.pushState({}, "", buildRouteShareUrl(window.location.origin, import.meta.env.BASE_URL, canonicalInput));
     setShareButtonState();
   }
 
@@ -179,7 +179,7 @@ async function submitRoute(routeInput: string, mode: ScanMode, options: { update
 
   try {
     const scanner = mode === "full" ? scanRouteForInvalidCalibration : scanRouteForFirstValidCalibration;
-    const result = await scanner(routeName, (progress) => {
+    const result = await scanner(canonicalInput, (progress) => {
       statusText.textContent = progress.message;
       if (progress.total && progress.current) {
         progressBar.style.width = `${Math.max(5, (progress.current / progress.total) * 100)}%`;
@@ -277,6 +277,7 @@ function renderResult(result: CalibrationScanResult): void {
   const pitch = message.rpyCalib[1];
   const yaw = message.rpyCalib[2];
   const roll = message.rpyCalib[0];
+  const detectedVehicle = formatDetectedVehicle(result.routeInfo?.make, result.routeInfo?.platform);
 
   const isInvalid = result.resultType === "invalid";
   const isIncomplete = result.resultType === "incomplete";
@@ -328,6 +329,7 @@ function renderResult(result: CalibrationScanResult): void {
     <dl class="result-list">
       <div><dt>Route</dt><dd><code>${escapeHtml(result.routeName)}</code></dd></div>
       <div><dt>Segment</dt><dd>${segmentText}</dd></div>
+      ${detectedVehicle ? `<div><dt>Detected vehicle</dt><dd>${escapeHtml(detectedVehicle)}</dd></div>` : ""}
       <div><dt>Status</dt><dd>${message.statusName} (${message.calPerc}% complete, ${message.validBlocks} valid blocks)</dd></div>
       <div><dt>Device tolerance</dt><dd>${limits.label}</dd></div>
       <div><dt>Roll / pitch / yaw</dt><dd>${formatAngle(roll)} / ${formatAngle(pitch)} / ${formatAngle(yaw)}</dd></div>
@@ -411,16 +413,11 @@ function renderToleranceRow(
 }
 
 function renderYawMotionVisual(yaw: number, limitKey: keyof typeof CALIBRATION_LIMITS): string {
-  const direction = yawMotionDirection(yaw);
+  const direction = yawCorrectionDirection(yaw);
   const deviceShape = limitKey === "mici" ? "c4" : "c3";
   const directionText = direction === "center" ? "Yaw is near 0°; no outward rotation needed." : `Rotate outward ${direction}.`;
   const ariaLabel = `Yaw motion guidance for ${CALIBRATION_LIMITS[limitKey].label}. ${directionText}`;
   return renderYawMotionSvg(deviceShape, direction, ariaLabel);
-}
-
-function yawMotionDirection(yaw: number): "left" | "right" | "center" {
-  if (Math.abs(yaw) < 0.0001) return "center";
-  return yaw > 0 ? "left" : "right";
 }
 
 function renderYawMotionSvg(deviceShape: "c3" | "c4", direction: "left" | "right" | "center", ariaLabel: string): string {

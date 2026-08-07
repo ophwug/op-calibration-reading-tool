@@ -51,8 +51,13 @@ Accepted inputs look like:
 
 ```text
 5beb9b58bd12b691|0000010a--a51155e496
+5beb9b58bd12b691/0000010a--a51155e496/1
 https://connect.comma.ai/5beb9b58bd12b691/0000010a--a51155e496/90/105
 ```
+
+A single trailing number selects that segment for **Quick look**. A trailing
+start/end pair from a clipped Connect URL is ignored. **Full scan** always scans
+the entire route.
 
 You can turn Public access off again after reading the route.
 
