@@ -71,7 +71,7 @@ app.innerHTML = `
       <h2>Remounting or installing?</h2>
       <p>Replacing an existing mount? Start by <a href="${DASHCAM_MOUNT_REMOVAL_SEARCH_URL}" target="_blank" rel="noreferrer">searching YouTube for dashcam mount removal instructions</a>. A generic guide is usually sufficient; examples may inject isopropyl alcohol under the adhesive with a syringe, use a heat gun, use fishing line, etc.</p>
       <p>After removal, completely clean the old adhesive from the windshield with alcohol pads and let the glass dry.</p>
-      <p>Once the old mount is off, you can go straight to <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buying a replacement mount from comma</a>.</p>
+      <p>Once the old mount is off, check whether you still have the spare mount that came with your comma device. If not, you can <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buy a replacement mount from comma</a>.</p>
       <p>To reuse the existing mount instead, also remove its old adhesive, clean it with alcohol pads, and let it dry. Then cut a <a href="${REPLACEMENT_MOUNT_ADHESIVE_URL}" target="_blank" rel="noreferrer">fresh sheet of 3M VHB adhesive</a> to fit and apply it to the mount.</p>
       <p>For installation, <a href="${COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL}" target="_blank" rel="noreferrer">find videos on properly mounting a comma device</a>. Community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
       can help position comma 3, comma 3x, and comma four mounts before attaching one to the windshield.</p>

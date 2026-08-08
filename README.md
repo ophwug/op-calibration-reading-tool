@@ -70,8 +70,9 @@ A generic guide is usually sufficient; examples may inject isopropyl alcohol
 under the adhesive with a syringe, use a heat gun, use fishing line, etc.
 
 After removal, completely clean the old adhesive from the windshield with
-alcohol pads and let the glass dry. Once the old mount is off, you can go straight to
-[buying a replacement mount from comma](https://comma.ai/shop/replacement-mounts).
+alcohol pads and let the glass dry. Once the old mount is off, check whether you
+still have the spare mount that came with your comma device. If not, you can
+[buy a replacement mount from comma](https://comma.ai/shop/replacement-mounts).
 To reuse the existing mount instead, also remove its old adhesive, clean it with
 alcohol pads, and let it dry. Then cut a
 [fresh sheet of 3M VHB adhesive](https://amzn.to/4xykPWB) to fit and apply it to the
