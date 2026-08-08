@@ -1,6 +1,10 @@
 export const API_BASE_URL = "https://api.comma.ai";
 export const GITHUB_REPO_URL = "https://github.com/ophwug/op-calibration-reading-tool";
 export const MOUNT_INSTALL_TEMPLATES_URL = "https://github.com/ophwug/mount-install-templates";
+export const DASHCAM_MOUNT_REMOVAL_SEARCH_URL = "https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions";
+export const COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL = "https://www.youtube.com/results?search_query=how+to+mount+comma+device";
+export const COMMA_REPLACEMENT_MOUNTS_URL = "https://comma.ai/shop/replacement-mounts";
+export const REPLACEMENT_MOUNT_ADHESIVE_URL = "https://amzn.to/4xykPWB";
 export const COMMA_JWT_PORTAL_URL = "https://jwt.comma.ai/";
 
 export const OPENPILOT_MASTER_SOURCES = {

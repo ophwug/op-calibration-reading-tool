@@ -1,6 +1,6 @@
 import "./styles.css";
 import { completeAuthCallback, isSignedIn, setAccessToken, signOut } from "./auth";
-import { CALIBRATION_LIMITS, COMMA_JWT_PORTAL_URL, GITHUB_REPO_URL, MOUNT_INSTALL_TEMPLATES_URL, OPENPILOT_MASTER_SOURCES } from "./constants";
+import { CALIBRATION_LIMITS, COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL, COMMA_JWT_PORTAL_URL, COMMA_REPLACEMENT_MOUNTS_URL, DASHCAM_MOUNT_REMOVAL_SEARCH_URL, GITHUB_REPO_URL, MOUNT_INSTALL_TEMPLATES_URL, OPENPILOT_MASTER_SOURCES, REPLACEMENT_MOUNT_ADHESIVE_URL } from "./constants";
 import { adjustmentHint, formatAngle, formatDegrees, formatDetectedVehicle, formatLogMonoTime, pitchDirection, yawCorrectionDirection, yawDirection, deviceLimitKey } from "./format";
 import { buildRouteShareUrl, parseRouteInput, routeInputFromUrl } from "./routeInput";
 import { scanRouteForFirstValidCalibration, scanRouteForInvalidCalibration, type CalibrationScanResult } from "./scan";
@@ -69,8 +69,11 @@ app.innerHTML = `
 
     <section class="related-tool">
       <h2>Remounting or installing?</h2>
-      <p>Community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
-      can help place comma 3, comma 3x, and comma four mounts before sticking them to the windshield.</p>
+      <p>Replacing an existing mount? First, <a href="${DASHCAM_MOUNT_REMOVAL_SEARCH_URL}" target="_blank" rel="noreferrer">search YouTube for dashcam mount removal instructions</a>, ideally for your vehicle and mount type.</p>
+      <p>After removal, you can <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buy a replacement mount from comma</a>, or reuse the existing mount with a <a href="${REPLACEMENT_MOUNT_ADHESIVE_URL}" target="_blank" rel="noreferrer">fresh sheet of VHB adhesive</a> that you cut to fit the mount.</p>
+      <p>Before attaching the mount, <a href="${COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL}" target="_blank" rel="noreferrer">find videos on properly mounting a comma device</a>.</p>
+      <p>After the old mount is removed, community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
+      can help place comma 3, comma 3x, and comma four mounts before sticking one to the windshield.</p>
     </section>
 
     <footer>

@@ -64,10 +64,17 @@ You can turn Public access off again after reading the route.
 
 ## Related tools
 
-Remounting or installing a device? The community-made
+Replacing an existing mount? First, search YouTube for
+[dashcam mount removal instructions](https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions),
+ideally for your vehicle and mount type. After removal, either
+[buy a replacement mount from comma](https://comma.ai/shop/replacement-mounts)
+or reuse the existing mount with a
+[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) that you cut to fit the mount. Before attaching the mount, find
+[videos on properly mounting a comma device](https://www.youtube.com/results?search_query=how+to+mount+comma+device).
+After the old mount is removed, the community-made
 [mount installation templates](https://github.com/ophwug/mount-install-templates)
 repo has printable mount placement PDFs for comma three, comma 3x, and comma
-four. These are not official comma.ai templates.
+four. These templates are not official comma.ai templates.
 
 ## Scan modes
 
