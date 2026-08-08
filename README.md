@@ -64,17 +64,18 @@ You can turn Public access off again after reading the route.
 
 ## Related tools
 
-Replacing an existing mount? First, search YouTube for
-[dashcam mount removal instructions](https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions),
-ideally for your vehicle and mount type. After removal, either
+Replacing an existing mount? Start by searching YouTube for
+[dashcam mount removal instructions](https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions)
+for your vehicle and mount type. Once the old mount is off, either
 [buy a replacement mount from comma](https://comma.ai/shop/replacement-mounts)
 or reuse the existing mount with a
-[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) that you cut to fit the mount. Before attaching the mount, find
+[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) that you cut to fit. For installation, find
 [videos on properly mounting a comma device](https://www.youtube.com/results?search_query=how+to+mount+comma+device).
-After the old mount is removed, the community-made
+The community-made
 [mount installation templates](https://github.com/ophwug/mount-install-templates)
-repo has printable mount placement PDFs for comma three, comma 3x, and comma
-four. These templates are not official comma.ai templates.
+repo can help position comma three, comma 3x, and comma four mounts before
+attaching one to the windshield. These templates are not official comma.ai
+templates.
 
 Still having issues? When asking for help, share a photo taken from the **back
 seat** that shows the device, mount, and windshield together.

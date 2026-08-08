@@ -69,11 +69,10 @@ app.innerHTML = `
 
     <section class="related-tool" id="remounting-help">
       <h2>Remounting or installing?</h2>
-      <p>Replacing an existing mount? First, <a href="${DASHCAM_MOUNT_REMOVAL_SEARCH_URL}" target="_blank" rel="noreferrer">search YouTube for dashcam mount removal instructions</a>, ideally for your vehicle and mount type.</p>
-      <p>After removal, you can <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buy a replacement mount from comma</a>, or reuse the existing mount with a <a href="${REPLACEMENT_MOUNT_ADHESIVE_URL}" target="_blank" rel="noreferrer">fresh sheet of VHB adhesive</a> that you cut to fit the mount.</p>
-      <p>Before attaching the mount, <a href="${COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL}" target="_blank" rel="noreferrer">find videos on properly mounting a comma device</a>.</p>
-      <p>After the old mount is removed, community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
-      can help place comma 3, comma 3x, and comma four mounts before sticking one to the windshield.</p>
+      <p>Replacing an existing mount? Start by <a href="${DASHCAM_MOUNT_REMOVAL_SEARCH_URL}" target="_blank" rel="noreferrer">searching YouTube for dashcam mount removal instructions</a> for your vehicle and mount type.</p>
+      <p>Once the old mount is off, either <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buy a replacement mount from comma</a>, or reuse the existing mount with a <a href="${REPLACEMENT_MOUNT_ADHESIVE_URL}" target="_blank" rel="noreferrer">fresh sheet of VHB adhesive</a> that you cut to fit.</p>
+      <p>For installation, <a href="${COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL}" target="_blank" rel="noreferrer">find videos on properly mounting a comma device</a>. Community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
+      can help position comma 3, comma 3x, and comma four mounts before attaching one to the windshield.</p>
       <p>Still having issues? When asking for help, share a photo taken from the <strong>back seat</strong> that shows the device, mount, and windshield together.</p>
     </section>
 
