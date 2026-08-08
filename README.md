@@ -65,11 +65,17 @@ You can turn Public access off again after reading the route.
 ## Related tools
 
 Replacing an existing mount? Start by searching YouTube for
-[dashcam mount removal instructions](https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions)
-for your vehicle and mount type. Once the old mount is off, either
-[buy a replacement mount from comma](https://comma.ai/shop/replacement-mounts)
-or reuse the existing mount with a
-[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) that you cut to fit. For installation, find
+[dashcam mount removal instructions](https://www.youtube.com/results?search_query=dashcam+mount+removal+instructions).
+A generic guide is usually sufficient; examples may inject isopropyl alcohol
+under the adhesive with a syringe, use a heat gun, use fishing line, etc.
+
+After removal, completely clean the old adhesive from the windshield with
+alcohol pads and let the glass dry. Once the old mount is off, you can go straight to
+[buying a replacement mount from comma](https://comma.ai/shop/replacement-mounts).
+To reuse the existing mount instead, also remove its old adhesive, clean it with
+alcohol pads, and let it dry. Then cut a
+[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) to fit and apply it to the
+mount. For installation, find
 [videos on properly mounting a comma device](https://www.youtube.com/results?search_query=how+to+mount+comma+device).
 The community-made
 [mount installation templates](https://github.com/ophwug/mount-install-templates)
