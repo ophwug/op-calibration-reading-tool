@@ -311,6 +311,24 @@ dd {
   scroll-margin-top: 20px;
 }
 
+.related-tool:target {
+  animation: remounting-help-flash 1.6s ease-in-out infinite;
+}
+
+@keyframes remounting-help-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgb(39 170 120 / 0.55);
+  }
+
+  30% {
+    box-shadow: 0 0 0 7px rgb(39 170 120 / 0.38);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgb(39 170 120 / 0);
+  }
+}
+
 .related-tool p {
   margin: 6px 0 0;
   color: #3f5550;
@@ -568,6 +586,13 @@ footer {
 footer {
   margin: 20px 0 0;
   font-size: 0.92rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .related-tool:target {
+    animation: none;
+    box-shadow: 0 0 0 3px rgb(39 170 120 / 0.38);
+  }
 }
 
 @media (max-width: 760px) {
