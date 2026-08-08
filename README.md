@@ -76,6 +76,9 @@ After the old mount is removed, the community-made
 repo has printable mount placement PDFs for comma three, comma 3x, and comma
 four. These templates are not official comma.ai templates.
 
+Still having issues? When asking for help, share a photo taken from the **back
+seat** that shows the device, mount, and windshield together.
+
 ## Scan modes
 
 - **Quick look**: stop at the first valid calibration and show which device

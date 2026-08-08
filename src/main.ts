@@ -67,13 +67,14 @@ app.innerHTML = `
       </article>
     </section>
 
-    <section class="related-tool">
+    <section class="related-tool" id="remounting-help">
       <h2>Remounting or installing?</h2>
       <p>Replacing an existing mount? First, <a href="${DASHCAM_MOUNT_REMOVAL_SEARCH_URL}" target="_blank" rel="noreferrer">search YouTube for dashcam mount removal instructions</a>, ideally for your vehicle and mount type.</p>
       <p>After removal, you can <a href="${COMMA_REPLACEMENT_MOUNTS_URL}" target="_blank" rel="noreferrer">buy a replacement mount from comma</a>, or reuse the existing mount with a <a href="${REPLACEMENT_MOUNT_ADHESIVE_URL}" target="_blank" rel="noreferrer">fresh sheet of VHB adhesive</a> that you cut to fit the mount.</p>
       <p>Before attaching the mount, <a href="${COMMA_DEVICE_MOUNT_INSTALLATION_SEARCH_URL}" target="_blank" rel="noreferrer">find videos on properly mounting a comma device</a>.</p>
       <p>After the old mount is removed, community-made <a href="${MOUNT_INSTALL_TEMPLATES_URL}" target="_blank" rel="noreferrer">printable mount templates</a>
       can help place comma 3, comma 3x, and comma four mounts before sticking one to the windshield.</p>
+      <p>Still having issues? When asking for help, share a photo taken from the <strong>back seat</strong> that shows the device, mount, and windshield together.</p>
     </section>
 
     <footer>
@@ -378,7 +379,7 @@ function renderToleranceVisualization(message: NonNullable<CalibrationScanResult
         minLabel: `${formatDegrees(limits.yawMaxRad)} left`,
         zeroLabel: "0° center",
         maxLabel: `${formatDegrees(limits.yawMinRad)} right`,
-        hint: adjustmentHint(message.rpyCalib[2], "yaw"),
+        hint: renderYawAdjustmentHint(message.rpyCalib[2]),
         reverseAxis: true,
         motion: renderYawMotionVisual(message.rpyCalib[2], limitKey),
       })}
@@ -420,6 +421,10 @@ function renderToleranceRow(
       ${axisLabels.motion ?? ""}
     </div>
   `;
+}
+
+function renderYawAdjustmentHint(yaw: number): string {
+  return adjustmentHint(yaw, "yaw").replace("remount", '<a href="#remounting-help">remount</a>');
 }
 
 function renderYawMotionVisual(yaw: number, limitKey: keyof typeof CALIBRATION_LIMITS): string {

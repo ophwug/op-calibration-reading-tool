@@ -308,6 +308,7 @@ dd {
 .related-tool {
   margin-top: 18px;
   padding: 16px 20px;
+  scroll-margin-top: 20px;
 }
 
 .related-tool p {
