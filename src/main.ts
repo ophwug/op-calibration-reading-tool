@@ -192,7 +192,8 @@ async function submitRoute(routeInput: string, mode: ScanMode, options: { update
       }
     });
     renderResult(result);
-    void loadQcameraPreview(result, renderGeneration);
+    restoreCurrentAnchor();
+    void loadQcameraPreview(result, renderGeneration).then(restoreCurrentAnchor);
   } catch (error) {
     statusText.textContent = error instanceof Error ? error.message : String(error);
     progressBar.style.width = "100%";
@@ -220,6 +221,14 @@ function clearResult(): void {
   renderGeneration += 1;
   resultPanel.hidden = true;
   resultPanel.innerHTML = "";
+}
+
+function restoreCurrentAnchor(): void {
+  const anchorId = decodeURIComponent(window.location.hash.slice(1));
+  if (!anchorId) return;
+  window.requestAnimationFrame(() => {
+    document.getElementById(anchorId)?.scrollIntoView({ block: "start" });
+  });
 }
 
 function renderAuthPanel(): void {
