@@ -74,7 +74,7 @@ alcohol pads and let the glass dry. Once the old mount is off, you can go straig
 [buying a replacement mount from comma](https://comma.ai/shop/replacement-mounts).
 To reuse the existing mount instead, also remove its old adhesive, clean it with
 alcohol pads, and let it dry. Then cut a
-[fresh sheet of VHB adhesive](https://amzn.to/4xykPWB) to fit and apply it to the
+[fresh sheet of 3M VHB adhesive](https://amzn.to/4xykPWB) to fit and apply it to the
 mount. For installation, find
 [videos on properly mounting a comma device](https://www.youtube.com/results?search_query=how+to+mount+comma+device).
 The community-made
