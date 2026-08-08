@@ -64,11 +64,12 @@ export function pitchDirection(pitch: number): string {
 export function adjustmentHint(value: number, axis: "pitch" | "yaw"): string {
   if (Math.abs(value) < 0.0001) return "Already near 0°.";
   if (axis === "pitch") {
-    return value > 0 ? "To get closer to 0°, aim the device more up." : "To get closer to 0°, aim the device more down.";
+    const direction = value > 0 ? "up" : "down";
+    return `To get closer to 0°, aim the device more ${direction}. You may need a mount adapter made for your vehicle.`;
   }
   return value > 0
-    ? "To get closer to 0°, twist the device clockwise to the right."
-    : "To get closer to 0°, twist the device counterclockwise to the left.";
+    ? "To get closer to 0°, remount the device more clockwise to the right."
+    : "To get closer to 0°, remount the device more counterclockwise to the left.";
 }
 
 export function withinLimits(message: CalibrationMessage, routeInfo: RouteInfo | null): boolean {

@@ -432,6 +432,14 @@ footer {
   width: min(100%, 300px);
 }
 
+.motion-caption {
+  margin: 4px 0 0;
+  color: #71837f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 .motion-centerline {
   stroke: #9fb1ab;
   stroke-width: 3;

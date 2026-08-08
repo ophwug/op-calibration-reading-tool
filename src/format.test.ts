@@ -3,11 +3,17 @@ import { adjustmentHint, formatDetectedVehicle, yawCorrectionDirection } from ".
 
 describe("adjustment hints", () => {
   it("describes negative yaw correction as counterclockwise left", () => {
-    expect(adjustmentHint(-0.02, "yaw")).toBe("To get closer to 0°, twist the device counterclockwise to the left.");
+    expect(adjustmentHint(-0.02, "yaw")).toBe("To get closer to 0°, remount the device more counterclockwise to the left.");
   });
 
   it("describes positive yaw correction as clockwise right", () => {
-    expect(adjustmentHint(0.02, "yaw")).toBe("To get closer to 0°, twist the device clockwise to the right.");
+    expect(adjustmentHint(0.02, "yaw")).toBe("To get closer to 0°, remount the device more clockwise to the right.");
+  });
+
+  it("suggests a vehicle mount adapter for pitch correction", () => {
+    expect(adjustmentHint(0.02, "pitch")).toBe(
+      "To get closer to 0°, aim the device more up. You may need a mount adapter made for your vehicle.",
+    );
   });
 
   it("keeps near-zero yaw neutral", () => {

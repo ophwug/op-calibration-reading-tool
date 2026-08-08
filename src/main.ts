@@ -424,7 +424,7 @@ function renderYawMotionVisual(yaw: number, limitKey: keyof typeof CALIBRATION_L
   const deviceShape = limitKey === "mici" ? "c4" : "c3";
   const directionText = direction === "center" ? "Yaw is near 0°; no outward rotation needed." : `Rotate outward ${direction}.`;
   const ariaLabel = `Yaw motion guidance for ${CALIBRATION_LIMITS[limitKey].label}. ${directionText}`;
-  return renderYawMotionSvg(deviceShape, direction, ariaLabel);
+  return `${renderYawMotionSvg(deviceShape, direction, ariaLabel)}<p class="motion-caption">Top-down view</p>`;
 }
 
 function renderYawMotionSvg(deviceShape: "c3" | "c4", direction: "left" | "right" | "center", ariaLabel: string): string {
