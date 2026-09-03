@@ -84,6 +84,7 @@ app.innerHTML = `
       Calibration limits come from <a href="${OPENPILOT_MASTER_SOURCES.calibrationd}" target="_blank" rel="noreferrer">openpilot calibrationd</a>,
       and fields come from the <a href="${OPENPILOT_MASTER_SOURCES.logSchema}" target="_blank" rel="noreferrer">openpilot log schema</a>.
       Source: <a href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">GitHub</a>.
+      Related project: <a href="https://opdm.mindflakes.com/" target="_blank" rel="noreferrer">openpilot Driver Monitoring Reading Tool</a>.
     </footer>
   </section>
 `;
